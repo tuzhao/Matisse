@@ -19,14 +19,14 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 ext {
-    bintrayRepo = 'matisse'
+    bintrayRepo = 'maven'
     bintrayName = 'matisse'
 
     publishedGroupId = 'org.tuzhao'
     libraryName = 'matisse'
     artifact = 'matisse'
 
-    libraryDescription = 'umeng library for Android'
+    libraryDescription = 'matisse library for Android'
 
     siteUrl = 'https://github.com/tuzhao/Matisse'
     gitUrl = 'git@github.com:tuzhao/Matisse.git'
