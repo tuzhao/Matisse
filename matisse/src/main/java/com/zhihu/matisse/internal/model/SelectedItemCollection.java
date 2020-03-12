@@ -16,9 +16,9 @@
 package com.zhihu.matisse.internal.model;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.zhihu.matisse.R;
 import com.zhihu.matisse.internal.entity.IncapableCause;
@@ -27,6 +27,7 @@ import com.zhihu.matisse.internal.entity.SelectionSpec;
 import com.zhihu.matisse.internal.ui.widget.CheckView;
 import com.zhihu.matisse.internal.utils.PathUtils;
 import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
+import com.zhihu.matisse.log.TagUtil;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -170,25 +171,12 @@ public class SelectedItemCollection {
         if (maxSelectableReached()) {
             int maxSelectable = currentMaxSelectable();
             String cause;
-
             try {
-                cause = mContext.getResources().getQuantityString(
-                        R.plurals.error_over_count,
-                        maxSelectable,
-                        maxSelectable
-                );
-            } catch (Resources.NotFoundException e) {
-                cause = mContext.getString(
-                        R.string.error_over_count,
-                        maxSelectable
-                );
-            } catch (NoClassDefFoundError e) {
-                cause = mContext.getString(
-                        R.string.error_over_count,
-                        maxSelectable
-                );
+                cause = mContext.getString(R.string.error_over_count, maxSelectable);
+            } catch (Exception e) {
+                Log.d(TagUtil.TAG, "get max select tips error", e);
+                cause = "You can only select up to " + maxSelectable + " media files";
             }
-
             return new IncapableCause(cause);
         } else if (typeConflict(item)) {
             return new IncapableCause(mContext.getString(R.string.error_type_conflict));
